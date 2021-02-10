@@ -27,3 +27,4 @@
 | text      | text       | NOT NULL |
 | user      | references |          |
 | prototype | references |          |
+
