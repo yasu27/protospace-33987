@@ -20,7 +20,6 @@ class PrototypesController < ApplicationController
 
   def show
     @prototype = Prototype.find(params[:id])
-    
     @comment = Comment.new
     @comments = @prototype.comments.includes(:user)
   end
@@ -48,9 +47,10 @@ class PrototypesController < ApplicationController
   def prototype_params
     params.require(:prototype).permit(:title, :catch_copy, :concept, :image).merge(user_id: current_user.id)
   end
-
+  # ＆＆　ろぐいんしているひとととうこうしたプロとのユーザーが等しい
   def move_to_index
-    unless user_signed_in?
+    @prototype = Prototype.find(params[:id])
+    unless user_signed_in? && current_user.id == @prototype.user_id
       redirect_to action: :index
     end
   end
